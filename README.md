@@ -1,4 +1,4 @@
-# 2 Factor Authentication
+# Captcha
 
 A Node.js RESTful API to generate a Captcha image and verify the code. The create service generates and returns base64 encoded PNG data for the Captcha image and writes the code to the session, whilst the verify service accepts a user supplied code and verifies it against the code stored in the session.
 Uses nodemon to automatically restart the server when code changes are saved.
@@ -6,7 +6,7 @@ Includes tests written using Mocha and Chai.
 
 ## Usage
 
-1. Clone the repository and change the siteName variable in server.js to reflect the label you want displayed in the authenticator app.
+1. Clone the repository.
 2. Install the dependencies `npm install`
 3. Start the server `nodemon server.js`
 4. Make web service requests as described below; you could use Postman to experiment.
