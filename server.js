@@ -25,7 +25,7 @@ app.use(session({
     saveUninitialized: true
 }));
 
-// Creates and returns base64 encoded PNG captcha image data, writes the captcha code to the session
+// Creates and returns base64 encoded PNG Captcha image data, writes the Captcha code to the session
 app.get('/create', function(req, res) {
     const captcha = svgCaptcha.create({size: captchaCodeLength});
     req.session.captchaCode = captcha.text;
@@ -39,22 +39,22 @@ app.get('/create', function(req, res) {
             });
         })
         .catch(error => {
-            return res.status(400).json({
+            return res.status(500).json({
                 success: false,
                 message: error
             });
         });
 });
 
-// verifies a captcha code against the code stored in the session
+// verifies a Captcha code against the code stored in the session
 app.post('/verify', function(req, res) {
-    req.checkBody("code", "Invalid code").isAlphanumeric().isLength({min: 6, max: 6});
+    req.checkBody('code', 'Invalid code').isAlphanumeric().isLength({min: 6, max: 6});
 
     req.getValidationResult().then(function(result) {
         if (!result.isEmpty()) {
             res.status(400).json({success: false, message: result.array()});
         } else {
-            // verify the captcha code stored in the session
+            // verify the Captcha code stored in the session
             if (req.session.captchaCode !== undefined && req.session.captchaCode === req.body.code) {
                 delete req.session.captchaCode;
                 return res.status(200).json({
@@ -64,7 +64,7 @@ app.post('/verify', function(req, res) {
             }
             
             delete req.session.captchaCode;
-            return res.status(400).json({
+            return res.status(401).json({
                 success: false,
                 message: 'Invalid code'
             });
