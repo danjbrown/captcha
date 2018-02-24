@@ -48,7 +48,7 @@ app.get('/create', function(req, res) {
 
 // verifies a Captcha code against the code stored in the session
 app.post('/verify', function(req, res) {
-    req.checkBody('code', 'Invalid code').isAlphanumeric().isLength({min: 6, max: 6});
+    req.checkBody('code', 'Invalid code').isAlphanumeric().isLength({min: captchaCodeLength, max: captchaCodeLength});
 
     req.getValidationResult().then(function(result) {
         if (!result.isEmpty()) {
